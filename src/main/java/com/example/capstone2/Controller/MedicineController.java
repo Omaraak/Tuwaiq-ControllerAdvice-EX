@@ -23,19 +23,13 @@ public class MedicineController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity add(@Valid @RequestBody Medicine medicine, Errors errors) {
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(400).body(errors.getFieldError().getDefaultMessage());
-        }
+    public ResponseEntity add(@Valid @RequestBody Medicine medicine) {
         medicineService.add(medicine);
         return ResponseEntity.status(201).body("Medicine added");
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity update(@Valid @RequestBody Medicine medicine, @PathVariable int id, Errors errors) throws ApiException {
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(400).body(errors.getFieldError().getDefaultMessage());
-        }
+    public ResponseEntity update(@Valid @RequestBody Medicine medicine, @PathVariable int id) throws ApiException {
         medicineService.update(id, medicine);
         return ResponseEntity.status(200).body("Medicine updated");
     }
