@@ -23,19 +23,13 @@ public class StaffController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity add(@Valid @RequestBody Staff staff, Errors errors) {
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(400).body(errors.getFieldError().getDefaultMessage());
-        }
+    public ResponseEntity add(@Valid @RequestBody Staff staff) {
         staffService.add(staff);
         return ResponseEntity.status(201).body("Staff added");
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity update(@Valid @RequestBody Staff staff, @PathVariable int id, Errors errors) throws ApiException {
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(400).body(errors.getFieldError().getDefaultMessage());
-        }
+    public ResponseEntity update(@Valid @RequestBody Staff staff, @PathVariable int id) throws ApiException {
         staffService.update(id, staff);
         return ResponseEntity.status(200).body("Staff updated");
     }
