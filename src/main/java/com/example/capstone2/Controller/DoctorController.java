@@ -8,7 +8,6 @@ import com.example.capstone2.Service.DoctorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,19 +24,13 @@ public class DoctorController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity add(@Valid @RequestBody Doctor doctor, Errors errors) {
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(400).body(errors.getFieldError().getDefaultMessage());
-        }
+    public ResponseEntity add(@Valid @RequestBody Doctor doctor) {
         doctorService.add(doctor);
         return ResponseEntity.status(201).body("Doctor added");
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity update(@Valid @RequestBody Doctor doctor, @PathVariable int id, Errors errors) throws ApiException {
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(400).body(errors.getFieldError().getDefaultMessage());
-        }
+    public ResponseEntity update(@Valid @RequestBody Doctor doctor, @PathVariable int id) throws ApiException {
         doctorService.update(id, doctor);
         return ResponseEntity.status(200).body("Doctor updated");
     }
@@ -54,19 +47,13 @@ public class DoctorController {
     }
 
     @PostMapping("/addAppointmentTime")
-    public ResponseEntity addAppointmentTime(@Valid @RequestBody Appointment appointment, Errors errors) throws ApiException {
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(400).body(errors.getFieldError().getDefaultMessage());
-        }
+    public ResponseEntity addAppointmentTime(@Valid @RequestBody Appointment appointment) throws ApiException {
         doctorService.addAppointment(appointment);
         return ResponseEntity.status(201).body("Appointment added");
     }
 
     @PostMapping("/makePrescription")
-    public ResponseEntity makePrescription(@Valid @RequestBody Prescription prescription, Errors errors) throws ApiException {
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(400).body(errors.getFieldError().getDefaultMessage());
-        }
+    public ResponseEntity makePrescription(@Valid @RequestBody Prescription prescription) throws ApiException {
         doctorService.makePrescription(prescription);
         return ResponseEntity.status(201).body("Prescription made");
     }
