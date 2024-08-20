@@ -23,19 +23,13 @@ public class PharmacyController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity add(@Valid @RequestBody Pharmacy pharmacy, Errors errors) {
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(400).body(errors.getFieldError().getDefaultMessage());
-        }
+    public ResponseEntity add(@Valid @RequestBody Pharmacy pharmacy) {
         pharmacyService.add(pharmacy);
         return ResponseEntity.status(201).body("Pharmacy added");
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity update(@Valid @RequestBody Pharmacy pharmacy, @PathVariable int id, Errors errors) throws ApiException {
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(400).body(errors.getFieldError().getDefaultMessage());
-        }
+    public ResponseEntity update(@Valid @RequestBody Pharmacy pharmacy, @PathVariable int id) throws ApiException {
         pharmacyService.update(id, pharmacy);
         return ResponseEntity.status(200).body("Pharmacy updated");
     }
